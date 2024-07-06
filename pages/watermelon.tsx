@@ -1,5 +1,4 @@
 import { Inter } from 'next/font/google'
-import Link from 'next/link'
 import { CldImage } from 'next-cloudinary'
 import { CldVideoPlayer } from 'next-cloudinary'
 
@@ -8,10 +7,11 @@ import Navbar from '@/components/navbar'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home({ imgData }: { imgData: any }) {
+export default function Watermelon({ imgData }: { imgData: any }) {
 	return (
 		<>
 			<Navbar />
+
 			<main className="flex flex-wrap gap-4 justify-center mt-8">
 				{imgData.map((img: any) => {
 					return (
@@ -32,7 +32,7 @@ export default function Home({ imgData }: { imgData: any }) {
 
 export async function getStaticProps() {
 	const res = await fetch(
-		`http://localhost:3000/api/cloudinary?folderName=parade`
+		`http://localhost:3000/api/cloudinary?folderName=watermelon`
 	)
 	const { data } = await res.json()
 	return {
