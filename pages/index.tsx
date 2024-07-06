@@ -32,7 +32,7 @@ export default function Home({ imgData }: { imgData: any }) {
 
 export async function getStaticProps() {
 	const res = await fetch(
-		`${process.env.NEXT_PUBLIC_BASE_URL}/api/cloudinary?folderName=watermelon`
+		`${process.env.NEXT_PUBLIC_BASE_URL || ''}/api/cloudinary`
 	)
 	const { data } = await res.json()
 	return {
