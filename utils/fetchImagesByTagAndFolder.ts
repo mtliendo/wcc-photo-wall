@@ -1,18 +1,15 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { v2 as cloudinary } from 'cloudinary'
-
 cloudinary.config({
 	cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
 	api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
 	api_secret: process.env.CLOUDINARY_SECRET,
 })
 
-async function fetchImagesByTagAndFolder(folderName: string) {
+export async function fetchImagesByTagAndFolder(folderName: string) {
 	console.log('the folder name', folderName)
 	try {
 		const result = await cloudinary.search
-			.expression(`folder:${folderName}`)
+			.expression(`folder:wcc-july-4-2024/${folderName}`)
 			.execute()
 
 		const data = result.resources.map((resource: any) => {
@@ -27,19 +24,4 @@ async function fetchImagesByTagAndFolder(folderName: string) {
 	} catch (error) {
 		console.error('Error fetching images:', error)
 	}
-}
-
-type Data = {
-	data: string[]
-}
-
-export default async function handler(
-	req: NextApiRequest,
-	res: NextApiResponse<Data>
-) {
-	const { folderName } = req.query
-
-	const data = await fetchImagesByTagAndFolder(`wcc-july-4-2024/${folderName}`)
-
-	res.status(200).json({ data })
 }

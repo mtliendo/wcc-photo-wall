@@ -5,6 +5,7 @@ import { CldVideoPlayer } from 'next-cloudinary'
 
 import 'next-cloudinary/dist/cld-video-player.css'
 import Navbar from '@/components/navbar'
+import { fetchImagesByTagAndFolder } from '@/utils/fetchImagesByTagAndFolder'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -31,11 +32,9 @@ export default function Home({ imgData }: { imgData: any }) {
 }
 
 export async function getStaticProps() {
-	const res = await fetch(
-		`${process.env.NEXT_PUBLIC_BASE_URL || ''}/api/cloudinary`
-	)
-	const { data } = await res.json()
+	const res = await fetchImagesByTagAndFolder('parade')
+
 	return {
-		props: { imgData: data },
+		props: { imgData: res },
 	}
 }
